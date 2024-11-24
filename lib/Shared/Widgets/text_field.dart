@@ -1,0 +1,66 @@
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../Constants/colors.dart';
+
+class BuildTextFormField extends StatelessWidget {
+  late TextEditingController controller;
+  late String hintText;
+  late IconData prefixIcon;
+  Widget? suffixIcon;
+  String? Function(String?)? valid;
+  TextInputType? keyboardType;
+  bool? isPassword;
+
+  BuildTextFormField({
+    required this.controller,
+    required this.hintText,
+    required this.prefixIcon,
+    Widget? this.suffixIcon,
+    required String? Function(String?)? this.valid, // search
+    TextInputType? this.keyboardType,
+    bool? this.isPassword,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      autocorrect: true,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      controller: controller,
+      style: GoogleFonts.lato(
+        fontWeight: FontWeight.bold,
+        fontSize: 15,
+      ),
+      validator: valid,
+      keyboardType: keyboardType,
+      obscureText: isPassword ?? false, // appear   // lw true hyb2a disappear
+      decoration: InputDecoration(
+        errorStyle: GoogleFonts.lato(fontWeight: FontWeight.bold),
+        hintText: hintText,
+        suffixIcon: suffixIcon,
+        prefixIcon: Padding(
+          padding: EdgeInsets.only(right: 20, left: 20),
+          child: Icon(
+            prefixIcon,
+            color: AppColors.color4
+          ),
+        ),
+        hintStyle: GoogleFonts.lato(color: Colors.grey),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(),
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+    );
+  }
+}
